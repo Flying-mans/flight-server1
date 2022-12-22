@@ -7,6 +7,7 @@ import com.jejuro.server1.repository.FlightRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -36,15 +37,20 @@ public class InterParkScrapping {
         ArrayList<Flight> flights = new ArrayList<>();
 
         for (int day=0; day<DATE_RANGE; day++) {
-            LocalDate localDate = now.plusDays(day);
-            String date = localDate.toString().replaceAll("-","");
-            // connection check
-            Connection con = getConnection(date);
+            try {
+                LocalDate localDate = now.plusDays(day);
+                String date = localDate.toString().replaceAll("-","");
+                // connection check
+                Connection con = getConnection(date);
 
-            JSONArray data = getFlightData(con);
+                JSONArray data = getFlightData(con);
 
-            List<Flight> flightInfo = getFlightInfo(data);
-            flights.addAll(flightInfo);
+                List<Flight> flightInfo = getFlightInfo(data);
+                flights.addAll(flightInfo);
+            } catch (JSONException e) {
+                log.info("JSON NULL in day {}", day);
+            }
+
         }
         flightRepository.saveAll(flights);
     }
