@@ -32,11 +32,11 @@ public class InterParkScrapping {
     private LocalDate now = LocalDate.now();
     private String collectedDate = now.toString().replaceAll("-", "");
 
-    @Scheduled(cron = "0 0 2 * * *")
+    @Scheduled(cron = "0 0 8 * * *")
     public void crawlData() {
         ArrayList<Flight> flights = new ArrayList<>();
 
-        for (int day=0; day<DATE_RANGE; day++) {
+        for (int day=DATE_RANGE; day<DATE_RANGE*2; day++) {
             try {
                 LocalDate localDate = now.plusDays(day);
                 String date = localDate.toString().replaceAll("-","");
