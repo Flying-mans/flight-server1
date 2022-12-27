@@ -1,14 +1,17 @@
 package com.jejuro.server1.entity;
 
+import com.jejuro.server1.common.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Flight {
 
     @Id @GeneratedValue
-    @Column(name = "FLIGHT_ID")
+    @Column(name = "flight_id")
     private Long id;
 
     private String code;

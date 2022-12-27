@@ -10,7 +10,7 @@ public class Airline {
 
     @Id
     @GeneratedValue
-    @Column(name = "AIRLINE_ID")
+    @Column(name = "airline_id")
     private Long id;
 
     private String code;
