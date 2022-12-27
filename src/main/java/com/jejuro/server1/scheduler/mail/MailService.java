@@ -22,7 +22,7 @@ public class MailService {
     private final AlarmRepository alarmRepository;
     private final FlightRepository flightRepository;
 
-    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "0 0 10 * * *")
     public void mailSchedule() {
         // 알람 테이블에서 처리 안된 알람 구하기
         // 항공편 정보와 가격 비교
