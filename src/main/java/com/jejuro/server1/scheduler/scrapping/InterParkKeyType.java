@@ -1,4 +1,4 @@
-package com.jejuro.server1.scheduler;
+package com.jejuro.server1.scheduler.scrapping;
 
 public enum InterParkKeyType {
 

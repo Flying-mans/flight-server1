@@ -1,9 +1,10 @@
-package com.jejuro.server1.scheduler;
+package com.jejuro.server1.scheduler.scrapping;
 
 import com.jejuro.server1.entity.Airline;
 import com.jejuro.server1.entity.Flight;
 import com.jejuro.server1.repository.AirlineRepository;
 import com.jejuro.server1.repository.FlightRepository;
+import com.jejuro.server1.scheduler.scrapping.InterParkKeyType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
