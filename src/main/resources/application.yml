@@ -4,6 +4,17 @@ spring:
     url: jdbc:mysql://52.78.174.166:3306/jejuro
     username: jejuro
     password: jejudo90
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: {userEmail}
+    password: {userPassword}
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
 
   jpa:
     hibernate:
