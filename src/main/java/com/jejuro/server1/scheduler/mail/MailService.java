@@ -47,9 +47,10 @@ public class MailService {
             System.out.println("wantPrice:"+wantPrice);
 
             if (wantPrice >= flight.getFee()) {
-                System.out.println(alarm.getMember());
+                System.out.println("alarm.getMember():"+alarm.getMember());
                 String email = alarm.getMember().getEmail();
-//                alarmRepository.setStatusDone(alarm.getId());
+                System.out.println("alarmId:"+alarm.getId());
+                alarmRepository.setStatusDone(alarm.getId());
                 emailList.add(email);
                 System.out.println("email:"+email);
             }
