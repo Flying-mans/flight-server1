@@ -2,7 +2,9 @@ package com.jejuro.server1.scheduler.scrapping;
 
 import com.jejuro.server1.entity.Airline;
 import com.jejuro.server1.entity.Flight;
+import com.jejuro.server1.entity.FlightList;
 import com.jejuro.server1.repository.AirlineRepository;
+import com.jejuro.server1.repository.FlightListRepository;
 import com.jejuro.server1.repository.FlightRepository;
 import com.jejuro.server1.scheduler.scrapping.InterParkKeyType;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.List;
 public class InterParkScrapping {
 
     private final FlightRepository flightRepository;
+    private final FlightListRepository flightListRepository;
     private final AirlineRepository airlineRepository;
     private int DATE_RANGE = 42;
     private LocalDate now = LocalDate.now();
@@ -53,7 +56,47 @@ public class InterParkScrapping {
             }
 
         }
+
+        addFlightList(flights);
+
         flightRepository.saveAll(flights);
+    }
+
+    private void addFlightList(ArrayList<Flight> flights) {
+        for (Flight flight : flights) {
+            String code = flight.getCode();
+            String depDate = flight.getDepDate();
+
+            FlightList f = flightListRepository.findByFlightCodeAndDepDate(code, depDate);
+            log.info("flistList = {}", f);
+            if (f != null) {
+                // 있으면 새로 넣기
+                flightListRepository.updateFee(f.getFee(), f.getId());
+            }
+            else {
+                // 없으면 만들기
+                String f_code = flight.getCode();
+                String f_departure = flight.getDeparture();
+                String f_arrival = flight.getArrival();
+                String f_depDate = flight.getDepDate();
+                String f_depTime = flight.getDepTime();
+                String f_arrTime = flight.getArrTime();
+                Airline f_airline = flight.getAirline();
+                int f_fee = flight.getFee();
+
+                FlightList flightList = new FlightList(
+                        f_code,
+                        f_departure,
+                        f_arrival,
+                        f_depDate,
+                        f_depTime,
+                        f_arrTime,
+                        f_fee,
+                        f_airline
+                );
+                flightListRepository.save(flightList);
+            }
+        }
     }
 
     public List<Flight> getFlightInfo(JSONArray availFareSet) {
