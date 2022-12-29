@@ -7,8 +7,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: {userEmail}
-    password: {userPassword}
+    username: sanguh096@gmail.com
+    password: nkeoqoebtdcgmovo
     properties:
       mail:
         smtp:
@@ -18,7 +18,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
