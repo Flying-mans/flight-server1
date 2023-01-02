@@ -22,7 +22,7 @@ public class Member{
 
     private String password;
 
-    private boolean status;
+    private int status;
 
     private String phoneNum;
 }
