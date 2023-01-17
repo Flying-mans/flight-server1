@@ -24,6 +24,7 @@ public class MailService {
     private final AlarmRepository alarmRepository;
     private final FlightRepository flightRepository;
 
+//    이메일 알림 시간 설정
     @Scheduled(cron = "0 0 10 * * *")
     public void mailSchedule() {
         // 알람 테이블에서 처리 안된 알람 구하기
