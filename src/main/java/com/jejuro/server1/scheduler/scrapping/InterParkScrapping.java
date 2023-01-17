@@ -36,7 +36,8 @@ public class InterParkScrapping {
     private LocalDate now = LocalDate.now();
     private String collectedDate = now.toString().replaceAll("-", "");
 
-    @Scheduled(cron = "0 0 8 * * *")
+//    항공가격 크론잡 시간 설정
+    @Scheduled(cron = "0 0 10 * * *")
     public void crawlData() {
         ArrayList<Flight> flights = new ArrayList<>();
 
@@ -127,17 +128,27 @@ public class InterParkScrapping {
             int tasf = Integer.parseInt((String)segFare.get("tasf")); // 발권 수수료 commission
 
             JSONArray classDetail = (JSONArray) segFare.get("classDetail");
+
+            //최소값 minFee 로 999999 설정
+            int minFee = 9999999;
             for (int j=0; j<classDetail.length(); j++) {
                 JSONObject classDetailJson = classDetail.getJSONObject(j);
                 String classDesc = (String)classDetailJson.get("classDesc");
                 int fare = Integer.parseInt((String)classDetailJson.get("fare"));
                 int fee = fuelChg + airTax + fare + tasf;
 
-                if (classDesc.equals("일반석")) {
-                    Flight flight = new Flight(code, departure, arrival, depDate, depTime, arrTime, collectedDate, fee,airline);
-                    flightList.add(flight);
-                }
+                // 만약 비즈니스석만 있다면 가격정보를 가져오지 않는다
+                if(!classDesc.equals("비즈니스석"))
+                    if(minFee >= fee ){
+                        minFee = fee;
+                    }
             }
+            // 항공 노선의 많은 좌석중(ex:할인,일반,특가석) 최저가로 된 하나의 항공편만 가져온다
+            if(minFee!=9999999){
+                Flight flight = new Flight(code, departure, arrival, depDate, depTime, arrTime, collectedDate, minFee, airline);
+                flightList.add(flight);
+            }
+
         }
         return flightList;
     }
@@ -184,5 +195,5 @@ public class InterParkScrapping {
         }
         return availFareSet;
     }
-}
 
+}
