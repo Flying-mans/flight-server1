@@ -30,8 +30,8 @@ public class MailService {
         // 알람 테이블에서 처리 안된 알람 구하기
         // 항공편 정보와 가격 비교
         List<String> mailList = getMailList();
-        if (mailList.size() > 0)
-            sendMail(mailList);
+        for(String mail : mailList)
+            sendMail(mail);
     }
 
     public List<String> getMailList() {
@@ -64,11 +64,10 @@ public class MailService {
         return emailList;
     }
 
-    public void sendMail(List<String> mailList) {
-        String[] stringMailList = mailList.toArray(String[]::new);
+    public void sendMail(String mail) {
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setTo(stringMailList);
+        message.setTo(mail);
         message.setSubject("축하합니다");
         message.setText("지정하신 가격대가 왔어요");
 
