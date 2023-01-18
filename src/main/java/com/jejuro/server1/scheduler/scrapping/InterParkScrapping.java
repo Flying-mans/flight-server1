@@ -129,22 +129,20 @@ public class InterParkScrapping {
 
             JSONArray classDetail = (JSONArray) segFare.get("classDetail");
 
-            //최소값 minFee 로 999999 설정
-            int minFee = 9999999;
+            //최소값 minFee 를 MAX_NUM 설정
+            int minFee = MAX_NUM;
             for (int j=0; j<classDetail.length(); j++) {
                 JSONObject classDetailJson = classDetail.getJSONObject(j);
                 String classDesc = (String)classDetailJson.get("classDesc");
                 int fare = Integer.parseInt((String)classDetailJson.get("fare"));
                 int fee = fuelChg + airTax + fare + tasf;
 
-                // 만약 비즈니스석만 있다면 가격정보를 가져오지 않는다
-                if(!classDesc.equals("비즈니스석"))
-                    if(minFee >= fee ){
-                        minFee = fee;
-                    }
+                // 만약 비즈니스석만 있다면 가격정보를 가져오지 않고 최소 가격만 가져온다
+                if(!classDesc.equals("비즈니스석") && minFee >= fee)
+                    minFee = fee;
             }
-            // 항공 노선의 많은 좌석중(ex:할인,일반,특가석) 최저가로 된 하나의 항공편만 가져온다
-            if(minFee!=9999999){
+            // 항공 노선의 많은 좌석중(ex:할인,일반,특가석) 최저가로 된 하나의 항공편만 가져오면서 비즈니스석 (999999)는 가져오지 않는다
+            if(minFee!=MAX_NUM){
                 Flight flight = new Flight(code, departure, arrival, depDate, depTime, arrTime, collectedDate, minFee, airline);
                 flightList.add(flight);
             }
