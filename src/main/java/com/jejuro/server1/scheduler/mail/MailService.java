@@ -68,8 +68,8 @@ public class MailService {
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setTo(mail);
-        message.setSubject("축하합니다");
-        message.setText("지정하신 가격대가 왔어요");
+        message.setSubject("[JEJURO] 알림하신 가격대가 도착했어요");
+        message.setText(" http://localhost:8081 에서 가격을 확인해 보세요");
 
         javaMailSender.send(message);
     }
