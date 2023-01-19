@@ -25,7 +25,7 @@ public class MailService {
     private final FlightRepository flightRepository;
 
 //    이메일 알림 시간 설정
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 32 16 * * *")
     public void mailSchedule() {
         // 알람 테이블에서 처리 안된 알람 구하기
         // 항공편 정보와 가격 비교
