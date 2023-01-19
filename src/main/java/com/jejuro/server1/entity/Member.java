@@ -16,13 +16,9 @@ public class Member{
 
     private String email;
 
-    private int isAdmin;
-
     private String nickName;
 
     private String password;
-
-    private int status;
 
     private String phoneNum;
 }
