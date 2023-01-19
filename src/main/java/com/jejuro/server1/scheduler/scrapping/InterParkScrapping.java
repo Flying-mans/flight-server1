@@ -35,9 +35,9 @@ public class InterParkScrapping {
     private int DATE_RANGE = 42;
     private LocalDate now = LocalDate.now();
     private String collectedDate = now.toString().replaceAll("-", "");
-
+    private final int MAX_NUM = 999999;
 //    항공가격 크론잡 시간 설정
-    @Scheduled(cron = "0 0 10 * * *")
+    @Scheduled(cron = "0 21 11 * * *")
     public void crawlData() {
         ArrayList<Flight> flights = new ArrayList<>();
 
